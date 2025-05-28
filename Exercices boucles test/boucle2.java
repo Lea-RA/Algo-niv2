@@ -1,3 +1,5 @@
+// Boucle comptant de 1 jusqu'à entrée utilisateur
+
 import java.util.Scanner;
 
 public class boucle2 {

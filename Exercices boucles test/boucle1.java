@@ -1,3 +1,5 @@
+// Boucle comptant de 1 à 10
+
 public class boucle1 {
     public static void main(String[] args) {
         

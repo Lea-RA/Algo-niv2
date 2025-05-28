@@ -1,3 +1,5 @@
+// Boucle bouteille de 1L demandant à l'utilisateur si il veut continuer à boire tant qu'elle n'est pas finie
+
 import java.util.Scanner;
 
 public class boucle4 {
