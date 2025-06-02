@@ -29,7 +29,7 @@
 
  import java.util.Scanner;
 
-public class boucle6 {
+public class boucleExo1 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -49,7 +49,7 @@ public class boucle6 {
 
                 case 1:
                 System.out.println("Avec ça frites (true) ou riz (false) ?");
-                boolean frie_rice = sc.nextBoolean(); break;
+                boolean fries_rice = sc.nextBoolean(); break;
 
                 case 2:
                 System.out.println("Soda (true) ou eau gazeuse (false) ?");

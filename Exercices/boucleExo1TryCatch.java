@@ -27,13 +27,20 @@
  * 
  */
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class boucle6TryCatch {
+public class boucleExo1TryCatch {
 
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
+
+        String commande = "";
+        LocalTime time = LocalTime.now();
+        DateTimeFormatter formatTemps = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime attente = time.plusMinutes(20);
 
         int i;
         for (i=0;i<=2;i++) {
@@ -41,22 +48,39 @@ public class boucle6TryCatch {
             switch (i) {
                 case 0:
                     boolean meat_veggie = questionMenu("\nBonjour, voulez vous notre menu avec viande (true) ou végétarien (false) ?");
-                    if (meat_veggie==true) {
+                    if (meat_veggie==false) {
+                        commande+="-Steak de soja\n";
+                    } else {
                         boolean cuisson = questionMenu("Le steak saignant (true) ou à point (false) ?");
-                    }
-                    break;
+                        if (cuisson==true) {
+                            commande+="-Steak saignant\n";
+                        } else {
+                            commande+="-Steak à point\n";
+                        }
+                    } break;
 
                 case 1:
-                boolean fries_rice = questionMenu("Avec ça frites (true) ou riz (false) ?"); break;
+                boolean fries_rice = questionMenu("Avec ça frites (true) ou riz (false) ?"); 
+                if (fries_rice==true) {
+                    commande+="-Frites\n";
+                } else {
+                    commande+="-Riz\n";
+                } break;
 
                 case 2:
-                boolean soda_wtr = questionMenu("Soda (true) ou eau gazeuse (false) ?"); break;
+                boolean soda_wtr = questionMenu("Soda (true) ou eau gazeuse (false) ?");
+                if (soda_wtr==true) {
+                    commande+="-Soda\n";
+                } else {
+                    commande+="-Eau gazeuse\n";
+                } break;
 
                 default:
                     break;
             }
         }
-        System.out.println("\nMerci pour votre commande elle sera prête dans 20min.");
+        System.out.println("\nMerci pour votre commande passée à "+time.format(formatTemps)+", elle sera prête dans 20 min, à "+attente.format(formatTemps)+".");
+        System.out.println("\n=== Récapitulatif ===\n"+commande);
         sc.close();
         
     }
