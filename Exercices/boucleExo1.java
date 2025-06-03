@@ -61,8 +61,5 @@ public class boucleExo1 {
         }
         System.out.println("\nMerci pour votre commande elle sera prête dans 20min.");
         sc.close();
-        
     }
-
-
 }

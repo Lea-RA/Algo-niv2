@@ -4,12 +4,12 @@ import java.time.format.DateTimeFormatter;
 public class exoDate {
     public static void main(String[] args) {
         
-        LocalDate date = LocalDate.of(2005, 02, 19);
+        LocalDate anniv = LocalDate.of(2005, 02, 19);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String formatdate = date.format(format);
+        String formatdate = anniv.format(format);
 
-        System.out.println("\n"+date);
-        System.out.println(formatdate);
+        System.out.println("\n"+anniv);
+        System.out.println(formatdate+"\n");
     }
 
 }
