@@ -27,39 +27,77 @@
  * 
  */
 
- import java.util.Scanner;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class boucleExo1 {
 
+    static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+
+        String commande = "";
+        LocalTime time = LocalTime.now();
+        DateTimeFormatter formatTemps = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime attente = time.plusMinutes(20);
 
         int i;
         for (i=0;i<=2;i++) {
             
             switch (i) {
                 case 0:
-                    System.out.println("\nBonjour, voulez vous notre menu avec viande (true) ou végétarien (false) ?");
-                    boolean meat_veggie = sc.nextBoolean();
-                    if (meat_veggie==true) {
-                        System.out.println("Le steak saignant (true) ou à point (false) ?");
-                        boolean cuisson = sc.nextBoolean();
-                    }
-                    break;
+                    boolean meat_veggie = questionMenu("\nBonjour, voulez vous notre menu avec viande (true) ou végétarien (false) ?");
+                    if (meat_veggie==false) {
+                        commande+="-Steak de soja\n";
+                    } else {
+                        boolean cuisson = questionMenu("Le steak saignant (true) ou à point (false) ?");
+                        if (cuisson==true) {
+                            commande+="-Steak saignant\n";
+                        } else {
+                            commande+="-Steak à point\n";
+                        }
+                    } break;
 
                 case 1:
-                System.out.println("Avec ça frites (true) ou riz (false) ?");
-                boolean fries_rice = sc.nextBoolean(); break;
+                boolean fries_rice = questionMenu("Avec ça frites (true) ou riz (false) ?"); 
+                if (fries_rice==true) {
+                    commande+="-Frites\n";
+                } else {
+                    commande+="-Riz\n";
+                } break;
 
                 case 2:
-                System.out.println("Soda (true) ou eau gazeuse (false) ?");
-                boolean soda_wtr = sc.nextBoolean(); break;
+                boolean soda_wtr = questionMenu("Soda (true) ou eau gazeuse (false) ?");
+                if (soda_wtr==true) {
+                    commande+="-Soda\n";
+                } else {
+                    commande+="-Eau gazeuse\n";
+                } break;
 
                 default:
                     break;
             }
         }
-        System.out.println("\nMerci pour votre commande elle sera prête dans 20min.");
+        System.out.println("\nMerci pour votre commande passée à "+time.format(formatTemps)+", elle sera prête dans 20 min, à "+attente.format(formatTemps)+".");
+        System.out.println("\n=== Récapitulatif ===\n"+commande);
         sc.close();
+        
+    }
+
+    // Dans un boucle infinie on pose à l'utilisateur une question
+    // Avec le try on lui demande d'essayer de retourner un scanner booléen (true/false)
+    // Si le return ne conclut pas à cause d'une mauvaise entrée (InputMismatchException) on affiche notre message d'erreur et on répète la question
+    // scanner nextLine pour vider le buffer (saut de ligne)
+    public static boolean questionMenu(String question) {
+        while (true) {
+            System.out.println(question);
+            try {
+                return sc.nextBoolean();
+            } catch (InputMismatchException e) {
+                System.out.println("\nEntrée invalide. Veuillez taper true ou false.\n");
+                sc.nextLine();
+            }
+        }
     }
 }
