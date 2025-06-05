@@ -40,7 +40,8 @@ public class boucleExo1 {
         String commande = "";
         LocalTime time = LocalTime.now();
         DateTimeFormatter formatTemps = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime attente = time.plusMinutes(20);
+        LocalTime attente = null;
+        int min = 0;
 
         int i;
         for (i=0;i<=2;i++) {
@@ -50,12 +51,18 @@ public class boucleExo1 {
                     boolean meat_veggie = questionMenu("\nBonjour, voulez vous notre menu avec viande (true) ou végétarien (false) ?");
                     if (meat_veggie==false) {
                         commande+="-Steak de soja\n";
+                        attente = time.plusMinutes(20);
+                        min = 20;
                     } else {
                         boolean cuisson = questionMenu("Le steak saignant (true) ou à point (false) ?");
                         if (cuisson==true) {
                             commande+="-Steak saignant\n";
+                            attente = time.plusMinutes(30);
+                            min = 30;
                         } else {
                             commande+="-Steak à point\n";
+                            attente = time.plusMinutes(40);
+                            min = 40;
                         }
                     } break;
 
@@ -79,7 +86,7 @@ public class boucleExo1 {
                     break;
             }
         }
-        System.out.println("\nMerci pour votre commande passée à "+time.format(formatTemps)+", elle sera prête dans 20 min, à "+attente.format(formatTemps)+".");
+        System.out.println("\nMerci pour votre commande passée à "+time.format(formatTemps)+", elle sera prête dans "+min+"min, à "+attente.format(formatTemps)+".");
         System.out.println("\n=== Récapitulatif ===\n"+commande);
         sc.close();
         

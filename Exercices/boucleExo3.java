@@ -64,6 +64,8 @@ Vous pouvez retirer qu'en multiple de 10
  * 
  */
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class boucleExo3 {
@@ -76,8 +78,11 @@ public class boucleExo3 {
         System.out.println("\nBienvenue sur votre compte bancaire, que puis-je faire pour vous ?");
         do {
             System.out.println("\n(0)Quitter\n(1)Retirer de l'argent\n(2)Consulter votre solde\n(3)Déposer de l'argent\n");
+            LocalDateTime time = null;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm:ss");
 
             switch (sc.nextInt()) {
+
                 case 0:
                 inUse = false; break;
 
@@ -85,9 +90,13 @@ public class boucleExo3 {
                 System.out.println("Combien voulez-vous retirer ?");
                 int retire = sc.nextInt();
                 if (retire%10==0 && retire<=solde + 500) {
+
                     solde-=retire;
-                    System.out.println("Opération acceptée : "+retire+" euros ont été retiré.");
+                    time = LocalDateTime.now();
+                    System.out.println("\nOpération acceptée : "+retire+" euros ont été retiré.\n["+time.format(formatter)+"]");
+
                 } else if (retire%10 !=0) {
+
                     System.out.println("Nous n'avons que des billets de 10.\nOpération refusée.");
                 } else {
                     System.out.println("Vous ne pouvez pas retirer plus que votre solde, 500 euros de découvert autorisé.\nOpération refusée.");
@@ -100,8 +109,10 @@ public class boucleExo3 {
                 System.out.println("Combien voulez-vous déposer ?");
                 int depot = sc.nextInt();
                 if (depot>=5 && depot%5==0) {
+
                     solde+=depot;
-                    System.out.println("Opération acceptée : "+depot+" euros ont été ajouté.");
+                    time = LocalDateTime.now();
+                    System.out.println("\nOpération acceptée : "+depot+" euros ont été ajouté.\n["+time.format(formatter)+"]");
                 } else {
                     System.out.println("Nous n'acceptons que les billets.\nOpération refusée.");
                 } break;
@@ -111,6 +122,7 @@ public class boucleExo3 {
             }
 
             if (inUse==false) {
+
                 System.out.println("\nMerci de votre visite, au revoir :) !\n");
             } else {
                 System.out.println("\nVoulez-vous autre chose ?");

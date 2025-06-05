@@ -46,6 +46,11 @@ Les afficher à la fin avec le coût total de vos courses
  */
 
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -57,6 +62,22 @@ public class boucleExo2 {
 
         ArrayList<String> course = new ArrayList<String>();  // Liste de produits
         ArrayList<Double> prix = new ArrayList<Double>();    // Liste de prix
+        LocalDate date = null;                              // variable date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy à HH:mm");
+
+        // boucle pour demander la date et l'année des courses
+        System.out.println("\nQuelle est la date d'aujourd'hui ? (jj/MM/aaaa)");
+        while (date==null) {
+            String input = sc.nextLine();
+
+            try {
+                date = LocalDate.parse(input, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+            } catch (DateTimeParseException e) {
+                System.out.println("\nFormat invalide. Veuillez rentre une date au format jj/MM/aaaa :");
+            }
+        }
+
         
         // boucle d'achat
         System.out.print("\nBonjour ! ");
@@ -73,8 +94,12 @@ public class boucleExo2 {
             }
         }
 
+        // définition de la variable localdatetime pour correspondre à l'heure de la fin des courses
+        LocalTime time = LocalTime.now();   
+        LocalDateTime today1 = LocalDateTime.of(date, time);
+
         // Le récap des courses en liste et le prix correspondant
-        System.out.println("\n=== Récapitulatif des courses ===\n");
+        System.out.println("\n=== Récapitulatif des courses ===\n(à la date du : "+today1.format(formatter)+")\n");
         for(int i=0; i < course.size(); i++) {
             System.out.println("-"+course.get(i)+", "+prix.get(i)+" euros");
         }
@@ -143,8 +168,10 @@ public class boucleExo2 {
                     break;
                 }
                 
-                // affichage de la nouvelle liste + prix
-                System.out.println("\n=== Nouveau récapitulatif des courses ===\n");
+                // affichage de la nouvelle liste + prix + heure update
+                time = LocalTime.now();
+                LocalDateTime today2 = today1.with(time);
+                System.out.println("\n=== Nouveau récapitulatif des courses ===\n(à la date du : "+today2.format(formatter)+")\n");
                 for(int i=0; i < course.size(); i++) {
                     System.out.println("-"+course.get(i)+", "+prix.get(i)+" euros");
                 }
