@@ -75,7 +75,7 @@ public class boucleExo3 {
 
         System.out.println("\nBienvenue sur votre compte bancaire, que puis-je faire pour vous ?");
         do {
-            System.out.println("(0)Quitter\n(1)Retirer de l'argent\n(2)Consulter votre solde\n(3)Déposer de l'argent\n");
+            System.out.println("\n(0)Quitter\n(1)Retirer de l'argent\n(2)Consulter votre solde\n(3)Déposer de l'argent\n");
 
             switch (sc.nextInt()) {
                 case 0:
@@ -84,11 +84,13 @@ public class boucleExo3 {
                 case 1:
                 System.out.println("Combien voulez-vous retirer ?");
                 int retire = sc.nextInt();
-                if (retire%10==0 && retire<=solde) {
+                if (retire%10==0 && retire<=solde + 500) {
                     solde-=retire;
                     System.out.println("Opération acceptée : "+retire+" euros ont été retiré.");
+                } else if (retire%10 !=0) {
+                    System.out.println("Nous n'avons que des billets de 10.\nOpération refusée.");
                 } else {
-                    System.out.println("Nous n'avons que des billets de 10. Veuillez réesayer.");
+                    System.out.println("Vous ne pouvez pas retirer plus que votre solde, 500 euros de découvert autorisé.\nOpération refusée.");
                 } break;
 
                 case 2:
@@ -101,12 +103,11 @@ public class boucleExo3 {
                     solde+=depot;
                     System.out.println("Opération acceptée : "+depot+" euros ont été ajouté.");
                 } else {
-                    System.out.println("Nous n'acceptons que les billets de 5. Veuillez réessayer.");
+                    System.out.println("Nous n'acceptons que les billets.\nOpération refusée.");
                 } break;
 
                 default:
-                System.out.println("Opération inconnue.");
-                    break;
+                System.out.println("Opération inconnue."); break;
             }
 
             if (inUse==false) {
