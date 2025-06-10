@@ -1,3 +1,4 @@
+package Jalon;
 /*Cher client, voici vos informations d'authentification :
 
  * Identifiant : AirmessComp
