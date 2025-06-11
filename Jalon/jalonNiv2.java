@@ -1,4 +1,3 @@
-package Jalon;
 /*Cher client, voici vos informations d'authentification :
 
  * Identifiant : AirmessComp
@@ -9,6 +8,7 @@ package Jalon;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
@@ -52,9 +52,10 @@ public class jalonNiv2 {
         ArrayList<String> arrivee = new ArrayList<String>();
         ArrayList<LocalDateTime> timedepart = new ArrayList<LocalDateTime>();
         ArrayList<LocalDateTime> timearrivee = new ArrayList<LocalDateTime>();
-        ArrayList<String> duration = new ArrayList<String>();
+        ArrayList<LocalTime> duration = new ArrayList<LocalTime>();
         ArrayList<Double> prix = new ArrayList<Double>();
         LocalDateTime date = null;
+        LocalTime flytime = null;
         Duration duree = null;
         DateTimeFormatter form = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
         double prixbase;
@@ -77,10 +78,12 @@ public class jalonNiv2 {
                 try {
                     date = LocalDateTime.parse(input, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
                     timedepart.add(date);
+
                     if (date.isBefore(LocalDateTime.now())) {
                         System.out.println("\nLa date du vol ne peut pas être antérieur à celle d'aujourd'hui.");
+                    } else {
+                        break;
                     }
-                    break;
 
                 } catch (DateTimeParseException e) {
                     System.out.println("\nFormat invalide. Veuillez réessayer.");
@@ -89,9 +92,10 @@ public class jalonNiv2 {
 
             System.out.print("Combien de temps durera le vol : ");
             while (true) {
-                String input = sc.nextLine().trim();
-                duration.add(input);
                 try {
+                    String input = sc.nextLine().trim();
+                    flytime = LocalTime.parse(input, DateTimeFormatter.ofPattern("HH:mm"));
+                    duration.add(flytime);
                     duree = Duration.parse("PT"+input.replace(":", "H")+"M");
                     break;
 
@@ -167,7 +171,7 @@ public class jalonNiv2 {
         // Affichage de tous nos vols
         System.out.println("\n===== Vol(s) Programmé(s) =====\n"); 
         for (int i=0; i < depart.size(); i++) {
-            System.out.println("- Départ de "+depart.get(i)+" le "+timedepart.get(i).format(form)+" || Arrivée à "+arrivee.get(i)+" le "+timearrivee.get(i).format(form)+" || Durée : "+duration.get(i)+" || Prix : "+String.format("%.2f", prix.get(i)));
+            System.out.println("- Départ de "+depart.get(i)+" le "+timedepart.get(i).format(form)+" || Arrivée à "+arrivee.get(i)+" le "+timearrivee.get(i).format(form)+" || Durée : "+duration.get(i)+" || Prix : "+String.format("%.2f", prix.get(i))+ " euros");
         }
         System.out.println("\n");
     }
